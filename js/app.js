@@ -14,22 +14,18 @@ function shuffle(array) {
     return array;
 }
 
-/*
- * Naming Functions (what features I`ll need to make my game)
- */
+// Set up the event listener for a card
+//Globals
+const deck = document.querySelector(`.deck`);
 
-function createCard(className) {
+deck.addEventListener(`click`, event => {
+    const clickTarget = event.target;
+    if (clickTarget.classList.contains(`card`)) {
+        toggleCard(clickTarget);
+    }
+});
 
-}
-
-function generateGameboard() {
-
-}
-
-function compareCards(cardA, cardB) {
-
-}
-
-function gameOver() {
-
+function toggleCard(card) {
+    card.classList.toggle('open');
+    card.classList.toggle('show');
 }
