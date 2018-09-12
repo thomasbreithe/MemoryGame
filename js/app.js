@@ -2,9 +2,12 @@
  * Create a list that holds all of my cards
  */
 
+// GLOBAL
+
 const deck = document.querySelector('.deck');
 let toggledCards = [];
 let moves = 0;
+//global variables for the clock
 let clockOff = true;
 let time = 0;
 let clockId;
@@ -26,7 +29,8 @@ shuffleDeck();
  *   - add each card's HTML to the page
  */
 
-// Shuffle function from http://stackoverflow.com/a/2450976
+//Shuffle  
+
 function shuffle(array) {
     var currentIndex = array.length,
         temporaryValue,
@@ -80,12 +84,16 @@ function isClickValid(clickTarget) {
     );
 }
 
+//setting clock functionality
+
 function startClock() {
     clockId = setInterval(() => {
         time++;
         displayTime();
     }, 500);
 }
+
+//starting clock functionality 
 
 function displayTime() {
     const clock = document.querySelector('.clock');
@@ -98,7 +106,7 @@ function displayTime() {
         clock.innerHTML = `${minutes}:${seconds}`;
     }
 }
-
+//Functionality to toggle cards
 function toggleCard(card) {
     card.classList.toggle('open');
     card.classList.toggle('show');
@@ -130,11 +138,12 @@ function checkForMatch() {
         }, 500);
     }
 }
-
+//game over  function
 function gameOver() {
     stopClock();
     toggleModal();
     writeModalStats();
+    alert("GAME OVER!");
 }
 
 function stopClock() {
@@ -169,12 +178,15 @@ function getStars() {
     return starCount;
 }
 
+//adding number of moves to the game
+
 function addMove() {
     moves++;
     const movesText = document.querySelector('.moves');
     movesText.innerHTML = moves;
 }
 
+//adding stars to the game depending on number of moves
 function checkScore() {
     if (moves === 18 || moves === 26) {
         hideStar();
@@ -190,6 +202,8 @@ function hideStar() {
         }
     }
 }
+
+// MODAL BUTTONS
 
 document.querySelector('.modal__cancel').addEventListener('click', () => {
     toggleModal();
@@ -210,12 +224,15 @@ function resetGame() {
     resetMoves();
     resetStars();
     shuffleDeck();
+    resetCards();
 }
 
+//This function calls the function - stopClock, changes the global clockOff var to true, sets global time vat to zero.
 function resetClockAndTime() {
     stopClock();
     clockOff = true;
     time = 0;
+    // also calls displayTime to restart the HTML
     displayTime();
 }
 
@@ -231,7 +248,7 @@ function resetStars() {
         star.style.display = 'inline';
     }
 }
-
+//reseting all cards
 function resetCards() {
     const cards = document.querySelectorAll('.deck li');
     for (let card of cards) {
